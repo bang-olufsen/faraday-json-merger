@@ -1,0 +1,16 @@
+{
+    "data": {
+        "v": 1,
+        "sn": "12345678",
+        "partType": "Left",
+        "production": {
+            "site": "Lyngby office",
+            "batch": "ABCD",
+            "timestamp": "2024-09-17T13:07:40Z"
+        },
+        "typeNum": "1234",
+        "itemNum": "1234567",
+        "hwRev": "A"
+    },
+    "signature": "Wao/IUHU4Ow94lEOBaMzNtfM3aPbclp0lN1ewi6mSYP29BOn17LmJrtKXQd1sllEDIc3q2a+grUsvp8wleonLQ=="
+}
