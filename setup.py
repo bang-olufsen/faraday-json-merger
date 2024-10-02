@@ -24,7 +24,7 @@ setup(
         "Topic  :: Software development :: Test tools",
         "Programming language :: Python :: 3.10",
     ],
-    packages=find_packages(include=["json2race", "json2race.*"]),
+    packages=find_packages(include=["json-merger", "json-merger.*"]),
     python_requires=">=3.10, <4",
     install_requires=[
         "click",
