@@ -1,6 +1,7 @@
 import click
 import json
 
+import binascii
 from colorama import Style, Fore
 from typing import cast
 
@@ -8,7 +9,8 @@ def decode_json_file(path: str) -> dict[str, object]:
     try:
         with open(path, "r") as f:
             print(f"Decoding '{Fore.CYAN}{path}{Style.RESET_ALL}'... ", end="")
-            j = json.load(f)
+            s = binascii.unhexlify(f.readline())
+            j = json.loads(s)
             print(f"{Fore.GREEN}OK{Style.RESET_ALL}")
             return cast(dict[str, object], j)
     except Exception as e:
@@ -18,7 +20,7 @@ def decode_json_file(path: str) -> dict[str, object]:
     return {}
 
 @click.command(
-    short_help="Tool that receives a series of JSON files pertaining to a set of earbuds and merges them into one."
+    short_help="Tool that receives a series of files pertaining to a set of earbuds containing the json string in hex and merges them into one."
 )
 @click.argument("src", required=True, nargs=-1)
 @click.argument("dst", required=True)
