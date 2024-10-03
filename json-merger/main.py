@@ -1,23 +1,21 @@
 import click
-import json
 
 import binascii
 from colorama import Style, Fore
 from typing import cast
 
-def decode_json_file(path: str) -> dict[str, object]:
+def decode_json_file(path: str) -> str:
     try:
         with open(path, "r") as f:
             print(f"Decoding '{Fore.CYAN}{path}{Style.RESET_ALL}'... ", end="")
-            s = binascii.unhexlify(f.readline())
-            j = json.loads(s)
+            s = binascii.unhexlify(f.readline()).decode("utf-8")
             print(f"{Fore.GREEN}OK{Style.RESET_ALL}")
-            return cast(dict[str, object], j)
+            return s
     except Exception as e:
         print(f"{Fore.RED}ERROR{Style.RESET_ALL}")
         print(f"Error: {e}")
 
-    return {}
+    return ""
 
 @click.command(
     short_help="Tool that receives a series of files pertaining to a set of earbuds containing the json string in hex and merges them into one."
@@ -25,12 +23,12 @@ def decode_json_file(path: str) -> dict[str, object]:
 @click.argument("src", required=True, nargs=-1)
 @click.argument("dst", required=True)
 def cli(src: tuple[str], dst: str) -> None:
-    parts: list[dict[str, object]] = []
+    parts: list[str] = []
     for f in src:
         parts.append(decode_json_file(f))
 
     with open(dst, "w") as out:
-        json.dump(parts, out)
+        out.write(f"[{','.join(parts)}]")
 
     print("Merged ", end="")
     for i, f in enumerate(src):
